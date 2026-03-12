@@ -1,10 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import AuthProvider from '../store/authProvider';
 
 const RootLayout = () => {
     return (
         <>
+            <h1>Welcome</h1>
             <main>
-                <Outlet/>
+                <AuthProvider>
+                    <Outlet/>
+                </AuthProvider>
             </main>
         </>        
     );
