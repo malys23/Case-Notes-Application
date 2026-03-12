@@ -1,0 +1,5 @@
+.loginSection{
+    display: flex;
+    flex-direction: column;
+    background-color: #BFC9D1;
+}

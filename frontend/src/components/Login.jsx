@@ -1,6 +1,8 @@
+import styles from './Login.module.css'
+
 const Login = () => {
     return (
-        <section className='login-section'>
+        <section className={styles.loginSection}>
             <h2>Login</h2>
             <div>
                 <label>Email</label>

@@ -1,0 +1,14 @@
+.mainPage {
+    display: flex;
+    flex-direction: row;
+}
+
+.intro{
+    width: 50%;
+    margin: 1rem;
+}
+
+.login{
+    width: 50%;
+    margin: 1rem;
+}

@@ -1,29 +1,48 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
 
+import RootLayout from './pages/Root';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import AuthProvider from './store/authProvider';
+import NotFoundPage from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
+import DashboardLayout from './pages/DashboardLayout';
+import DashboardPage from './pages/Dashboard';
+import MyCasesPage from './pages/MyCases';
+import CaseDetailPage from './pages/CaseDetail';
+import NewCasePage from './pages/NewCase';
+import EditCasePage from './pages/EditCase';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path='/login' element={<LoginPage />}/>
-          <Route path='/register' element={<RegisterPage />}/>
+const router = createBrowserRouter([
+  {path: '/',
+   element: <RootLayout />,
+   errorElement: <NotFoundPage/>,
+   children: [
+    { index: true, element: <LoginPage />},
+    { path: '/register', element: <RegisterPage/>},
+    { path: '/dashboard', 
+      element:
+        <ProtectedRoute>
+          <DashboardLayout/>
+        </ProtectedRoute>,
+      children: [
+        { index: true, element: <DashboardPage/>},
+        { path: 'mycases', element: <MyCasesPage/>},
+        { path: ':caseId',
+          id: 'case-detail',
+          children: [
+            {index: true, element: <CaseDetailPage/>},
+            {path: 'edit', element: <EditCasePage />}
+          ]},
+        { path: 'new', element: <NewCasePage/>}
+      ]
+    }
+   ], 
+  },
+]);
 
-          <Route path='/' element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }/>
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
-  );
+function App(){
+  return <RouterProvider router={router}/>;
 }
 
 export default App
