@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from 'react';
 import { login as loginService, logout as logoutService } from '../services/authService';
-import { useNavigate } from 'react-router-dom';
 import AuthContext from './authContext';
 
 const initialState = {
@@ -49,7 +48,6 @@ const authReducer = (state, action) => {
 
 const AuthProvider = ({ children }) => {
     const [ authState, authDispatch] = useReducer(authReducer, initialState);
-    const navigate = useNavigate();
 
     //check if user logged in already
     useEffect(() => {
@@ -83,14 +81,12 @@ const AuthProvider = ({ children }) => {
                 token: data.token
             }
         });
-        navigate('/dashboard');
     }
 
     const logout = () => {
         logoutService();
         localStorage.removeItem('user');
         authDispatch({type: 'LOGOUT'});
-        navigate('/login');
     };
 
     return(
