@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import AuthProvider from '../store/authProvider';
 
 const RootLayout = () => {
     return (
         <>
-            <h1>Welcome</h1>
             <main>
                 <AuthProvider>
+                    <NavBar/>
                     <Outlet/>
                 </AuthProvider>
             </main>
